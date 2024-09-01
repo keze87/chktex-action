@@ -81,7 +81,6 @@ def failing_files(files_to_process=None, chktex_command=None):
         )
 
         if not result.success:
-            print("::warning file=" + file + ",line=1,col=1::" + stdout)
             error_details.append(result)
 
     return error_details
@@ -103,9 +102,9 @@ if __name__ == "__main__":
     chktexrc = find_chktexrc(github_workspace_path=GITHUB_WORKSPACE)
     if chktexrc:
         print("Found local chktexrc")
-        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "-l", chktexrc, file]
+        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format='::warning file=%f,line=%l,col=%c::%k %n - %m - %s'", "-l", chktexrc, file]
     else:
-        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", file]
+        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format='::warning file=%f,line=%l,col=%c::%k %n - %m - %s'", file]
 
     failing_file_info = failing_files(files_to_process, chktex_command)
     if failing_file_info:
