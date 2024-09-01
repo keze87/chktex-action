@@ -117,5 +117,6 @@ if __name__ == "__main__":
                "=" * 50,
                sep="\n",
            )
+           print("::warning file=" + failing_file_details.filename + ",line=1,col=1::" + failing_file_details.stdout)
 
     sys.exit(0) #(len(failing_file_info))
