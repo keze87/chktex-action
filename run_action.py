@@ -102,9 +102,9 @@ if __name__ == "__main__":
     chktexrc = find_chktexrc(github_workspace_path=GITHUB_WORKSPACE)
     if chktexrc:
         print("Found local chktexrc")
-        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format=::warning file=%f,line=%l,col=%c::%k %n - %m - %r\n", "-l", chktexrc, file]
+        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format=::warning file=%f,line=%l,col=%c::%k %n - %m - %r\n%s\n%t\n", "-l", chktexrc, file]
     else:
-        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format=::warning file=%f,line=%l,col=%c::%k %n - %m - %r\n", file]
+        def chktex_command(file): return ["chktex", "-q", "--inputfiles=0", "--format=::warning file=%f,line=%l,col=%c::%k %n - %m - %r\n%s\n%t\n", file]
 
     failing_file_info = failing_files(files_to_process, chktex_command)
     if failing_file_info:
